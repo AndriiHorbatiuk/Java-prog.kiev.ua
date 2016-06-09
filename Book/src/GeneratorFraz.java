@@ -11,10 +11,11 @@ public class GeneratorFraz {
         int wl2length = wordlist2.length;
         int wl3lenght = wordlist3.length;
         //Генерируем случаное число (позицию в массиве)
-        int rand1 = (int)(Math.random()*wl1length);
-        int rand2 = (int)(Math.random()*wl2length);
-        int rand3 = (int)(Math.random()*wl3lenght);
+        byte rand1 = (byte)(Math.random()*wl1length);
+        byte rand2 = (byte)(Math.random()*wl2length);
+        byte rand3 = (byte)(Math.random()*wl3lenght);
         String phrase = wordlist1[rand1] + " " + wordlist2[rand2] + " " + wordlist3[rand3];
-        System.out.print(phrase);
+        System.out.println(phrase);
+        System.out.print((byte)(Math.random()*2));
     }
 }
