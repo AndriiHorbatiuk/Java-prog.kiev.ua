@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Arrays;
-
 /**
  * Created by Andrey on 13.06.2016.
  */
