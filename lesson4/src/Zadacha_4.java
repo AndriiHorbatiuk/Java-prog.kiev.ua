@@ -12,13 +12,13 @@ public class Zadacha_4 {
         for (int i = 0; i < 10; i++){
             massiv[i] = r.nextInt();
             if(i != 0 && i != ((massiv.length)-1)){
-                sum += massiv[i];
+                sum += (long)(massiv[i]);
             }
         }
         String s = Arrays.toString(massiv);
         System.out.println(s);
         System.out.println(sum);
-        long sum2 = massiv[1] + massiv[2] + massiv[3] + massiv[4] + massiv[5] + massiv[6] + massiv[7] + massiv[8];
+        long sum2 = (long)massiv[1] + massiv[2] + massiv[3] + massiv[4] + massiv[5] + massiv[6] + massiv[7] + massiv[8];
         System.out.println(sum2);
     }
 }
