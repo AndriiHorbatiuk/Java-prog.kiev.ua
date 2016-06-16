@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Random;
-import java.util.Arrays;
 /**
  * Created by Andrey on 16.06.2016.
  */
