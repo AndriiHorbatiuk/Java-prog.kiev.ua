@@ -14,7 +14,7 @@ public class Numbers {
         palindromCheck(array);
     }
 
-    public String getNumbers() {
+    private String getNumbers() {
         String numbers;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите числа через запятую: ");
@@ -22,12 +22,12 @@ public class Numbers {
         return numbers;
     }
 
-    public String[] convertNumbersToArray(String n) {
+    private String[] convertNumbersToArray(String n) {
         String[] numbersArrayString = n.split(",");
         return numbersArrayString;
     }
 
-    public String reverseString(String s) {
+    private String reverseString(String s) {
         String result = "";
         for (int i = s.length() - 1; i >= 0; --i) {
             result += s.charAt(i);
@@ -48,6 +48,6 @@ public class Numbers {
     }
 
     public String getPalindrom() {
-        return this.palindrom;
+        return palindrom;
     }
 }

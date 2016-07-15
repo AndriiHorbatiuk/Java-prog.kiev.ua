@@ -28,7 +28,7 @@ public class Monthes {
         return month;
     }
 
-    public void getMonthNameFromUserNumber(int x) {
+    private void getMonthNameFromUserNumber(int x) {
         monthName = monthesArray[x];
     }
 

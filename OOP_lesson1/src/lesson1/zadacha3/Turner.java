@@ -6,9 +6,9 @@ import java.util.Arrays;
  * Created by Andrey on 16.07.2016.
  */
 public class Turner {
-    int[][] massiv = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    private int[][] massiv = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
-    public int[][] turn270Degrees(int[][] x) {
+    private int[][] turn270Degrees(int[][] x) {
         int[][] y = new int[x.length][x.length];
         for (int cols = 0; cols < x.length; cols++) {
             for (int rows = 0, count = (x[cols].length - 1); rows < x[cols].length; rows++, count--) {
@@ -18,13 +18,13 @@ public class Turner {
         return y;
     }
 
-    public int[][] turn180Degrees(int[][] x) {
+    private int[][] turn180Degrees(int[][] x) {
         int[][] result = turn270Degrees(x);
         result = turn270Degrees(result);
         return result;
     }
 
-    public int[][] turn90Degrees(int[][] x) {
+    private int[][] turn90Degrees(int[][] x) {
         int[][] result = turn180Degrees(x);
         result = turn270Degrees(result);
         return result;
