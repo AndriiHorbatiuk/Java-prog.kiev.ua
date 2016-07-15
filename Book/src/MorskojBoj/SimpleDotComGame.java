@@ -1,5 +1,6 @@
 package MorskojBoj;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -8,21 +9,24 @@ import java.util.Scanner;
  */
 public class SimpleDotComGame {
     public static void main(String[] args) {
-        int shots= 0;
+        int shots = 0;
         Scanner scanner = new Scanner(System.in);
         SimpleDotCom dot = new SimpleDotCom();
         String finish = "Мимо";
-        int randomNum = (int)(Math.random()*5);
+        int randomNum = (int) (Math.random() * 5);
         System.out.println(randomNum);
-        int[] location = {randomNum,randomNum+1,randomNum+2};
+        ArrayList<Integer> location = new ArrayList<Integer>();
+        location.add(randomNum);
+        location.add(randomNum+1);
+        location.add(randomNum+2);
         dot.setLocationCells(location);
-        while(!finish.equals("Потопил")){
+        while (!finish.equals("Потопил")) {
             System.out.print("Куда стреляем: ");
-            String s = scanner.nextLine();
+            int s = scanner.nextInt();
             finish = dot.checkYourself(s);
             System.out.println(finish);
             ++shots;
-            }
+        }
         System.out.println("Вам понадобилось выстрелов: " + shots);
 
     }
