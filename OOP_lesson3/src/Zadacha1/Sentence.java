@@ -9,6 +9,8 @@ import java.util.List;
 public class Sentence {
 
     private List<String> sentence = new ArrayList<>();
+    private String sentenceString;
+
 
     public List<String> getSentence() {
         return sentence;
@@ -20,5 +22,18 @@ public class Sentence {
 
     public void addWordToSentence(String word){
         sentence.add(word);
+    }
+
+    public void addWord(String word){
+        sentence.add(word);
+    }
+
+    public String sentenceToString(){
+        return String.join(" ",sentence);
+    }
+
+    @Override
+    public String toString() {
+        return "" + sentence;
     }
 }
