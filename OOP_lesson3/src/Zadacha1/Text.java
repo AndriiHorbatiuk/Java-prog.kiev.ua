@@ -7,6 +7,18 @@ public class Text {
     private String textTitle;
     private String text;
 
+    public void displayTextTitle(){
+        System.out.println(textTitle);
+    }
+
+    public void displayText(){
+        System.out.println(text);
+    }
+
+    public void addText(String s){
+        text = text + s;
+    }
+
     public String getTextTitle() {
         return textTitle;
     }
