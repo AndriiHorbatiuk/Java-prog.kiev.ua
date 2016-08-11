@@ -3,6 +3,8 @@ package Lesson6;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by Andrey on 10.08.2016.
@@ -51,7 +53,7 @@ public class Utils {
         List<Film> resultList = new ArrayList<>();
 
         for (Film film : filmList) {
-            if(film.getGenre() == Genre.HORROR | film.getGenre() == Genre.THRILLER){
+            if (film.getGenre() == Genre.HORROR | film.getGenre() == Genre.THRILLER) {
                 resultList.add(film);
             }
         }
@@ -62,11 +64,21 @@ public class Utils {
         List<Film> resultList = new ArrayList<>();
 
         for (Film film : filmList) {
-            if(film.getGenre() == Genre.COMEDY && film.getYear() >= 1990 && film.getYear() <= 2000){
+            if (film.getGenre() == Genre.COMEDY && film.getYear() >= 1990 && film.getYear() <= 2000) {
                 resultList.add(film);
             }
         }
         return resultList;
+    }
+
+    public static List<Film> findHorrorThrillerFilmsWithStream(List<Film> filmList) {
+        Stream<Film> streamOfFilms = filmList.stream().filter((p) -> p.getGenre() == Genre.THRILLER || p.getGenre() == Genre.HORROR);
+        return streamOfFilms.collect(Collectors.toList());
+    }
+
+    public static List<Film> findComedyBetween19902000WithStream(List<Film> filmList) {
+        Stream<Film> streamOfFilms = filmList.stream().filter((p) -> p.getGenre() == Genre.COMEDY && (p.getYear() >= 1990 && p.getYear() <= 2000));
+        return streamOfFilms.collect(Collectors.toList());
     }
 
 }
