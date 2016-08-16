@@ -9,9 +9,12 @@ import java.util.List;
  */
 public class Runner {
     public static void main(String[] args) {
-        List<String> list = Arrays.asList("Anton", "Scala", "Bravo","Z-planet");
+        List<String> list = Arrays.asList("Anton", "Scala", "Aaron", "Aaaaa", "Zzzzz", "Bravo", "Bbbbbbb", "Z-planet","VeryLongString","Bbbbb");
         Comparing comparing = new Comparing(list);
-        comparing.sortAlpabet();
-
+        comparing.sortAlphabet();
+        comparing.sortReverseAlphabet();
+        comparing.minName();
+        comparing.stringLength();
+        comparing.stringLengthWithParams();
     }
 }

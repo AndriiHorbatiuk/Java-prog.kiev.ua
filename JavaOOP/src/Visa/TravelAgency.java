@@ -10,8 +10,8 @@ public class TravelAgency {
     private String travelAgencyEmail;
     private String getTravelAgencyWebSiteUrl;
     private String travelAgencyTelNumber;
-    private List<Countries> travelAgencyCountryList;
-    private City travelAgencyCity;
+    private String travelAgencyCountryList;
+    private String travelAgencyCity;
     private String travelAgencyStreet;
     private String travelAgencyHouseNumber;
     private long travelAgencyId;

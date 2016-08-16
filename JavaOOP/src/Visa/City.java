@@ -1,10 +1,18 @@
 package Visa;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
- * Created by Andrey on 11.08.2016.
+ * Created by Andrey on 15.08.2016.
  */
 public enum City {
-    KYIV,
-    ODESSA,
-    NIKOLAEV;
+    CITY;
+
+    private final List<String> CITIES = Arrays.asList("Kiev", "Odessa", "Poltava");
+
+    public List<String> getCITIES() {
+        return new ArrayList<String>(CITIES);
+    }
 }
