@@ -5,7 +5,6 @@ package Visa.utils;
  */
 public class ObjectUtils {
     public static <T> boolean isNotNull(T object){
-        boolean result = (object != null)?true:false;
-        return result;
+        return (object != null);
     }
 }

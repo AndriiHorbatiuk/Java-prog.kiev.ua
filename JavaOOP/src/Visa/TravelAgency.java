@@ -15,8 +15,8 @@ public class TravelAgency {
     private String travelAgencyTelNumber;
     private String travelAgencyCity;
     private String travelAgencyStreet;
-    private int travelAgencyHouseNumber;
-    private List<Request> responsesOfTravelAgency = new ArrayList<>();
+    private String travelAgencyHouseNumber;
+    private List<String> respondsOfTravelAgency = new ArrayList<>();
 
     //Constructor
 
@@ -76,16 +76,16 @@ public class TravelAgency {
         this.travelAgencyStreet = travelAgencyStreet;
     }
 
-    public int getTravelAgencyHouseNumber() {
+    public String getTravelAgencyHouseNumber() {
         return travelAgencyHouseNumber;
     }
 
-    public void setTravelAgencyHouseNumber(int travelAgencyHouseNumber) {
+    public void setTravelAgencyHouseNumber(String travelAgencyHouseNumber) {
         this.travelAgencyHouseNumber = travelAgencyHouseNumber;
     }
 
-    public List<Request> getResponsesOfTravelAgency() {
-        return responsesOfTravelAgency;
+    public List<String> getRespondsOfTravelAgency() {
+        return respondsOfTravelAgency;
     }
 
     @Override
@@ -115,7 +115,7 @@ public class TravelAgency {
         result = 31 * result + (travelAgencyTelNumber != null ? travelAgencyTelNumber.hashCode() : 0);
         result = 31 * result + (travelAgencyCity != null ? travelAgencyCity.hashCode() : 0);
         result = 31 * result + (travelAgencyStreet != null ? travelAgencyStreet.hashCode() : 0);
-        result = 31 * result + travelAgencyHouseNumber;
+        result = 31 * result + (travelAgencyHouseNumber != null ? travelAgencyHouseNumber.hashCode() : 0);
         return result;
     }
 }

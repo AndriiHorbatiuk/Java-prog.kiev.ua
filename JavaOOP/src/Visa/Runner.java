@@ -41,12 +41,24 @@ public class Runner {
         ta.setTravelAgencyCity(City.CITY.getCITIES().get(0));
         ta.setGetTravelAgencyWebSiteUrl("http://domain.com.ua");
         ta.setTravelAgencyEmail("ta@email.com");
-        ta.setTravelAgencyHouseNumber(12);
+        ta.setTravelAgencyHouseNumber("12");
         ta.setTravelAgencyStreet("Волкова");
         ta.setTravelAgencyTelNumber("0445556677");
 
-        PriceResponds pr1 = new PriceResponds(ta.getTravelAgencyEmail(), request1.getRequestId(), 400);
-        PriceResponds pr2 = new PriceResponds(ta.getTravelAgencyEmail(), request1.getRequestId(), 120);
+        ta2.setTravelAgencyCity(City.CITY.getCITIES().get(0));
+        ta2.setGetTravelAgencyWebSiteUrl("http://domainta2.com.ua");
+        ta2.setTravelAgencyHouseNumber("100");
+        ta2.setTravelAgencyStreet("Харьковская");
+        ta2.setTravelAgencyTelNumber("0445568777");
+
+        ta3.setTravelAgencyCity(City.CITY.getCITIES().get(0));
+//        ta3.setGetTravelAgencyWebSiteUrl("http://domainta3.com.ua");
+        ta3.setTravelAgencyHouseNumber("8");
+        ta3.setTravelAgencyStreet("Быкова");
+        ta3.setTravelAgencyTelNumber("0445156677");
+
+        PriceResponds pr1 = new PriceResponds(ta2.getTravelAgencyEmail(), request1.getRequestId(), 400);
+        PriceResponds pr2 = new PriceResponds(ta3.getTravelAgencyEmail(), request1.getRequestId(), 120);
         PriceResponds pr3 = new PriceResponds(ta.getTravelAgencyEmail(), request1.getRequestId(), 1030);
 
         System.out.println(AllUsers.getAllUsersMap().toString());
@@ -83,10 +95,20 @@ public class Runner {
 
 // Выполняем сортировки
 
-        System.out.println("От меньщей цены к большей: ");
-        RequestFilters.filterSortPriceMinMax(request1);
-//        System.out.println("От большей цены к меньшей: ");
-//        RequestFilters.filterSortPriceMaxMin(request1);
+        System.out.println("От меньщей цены к большей:");
+        PriceRespondSorting.filterSortPriceMinMax(request1.getRequestId());
+        System.out.println("От большей цены к меньшей:");
+        PriceRespondSorting.filterSortPriceMaxMin(request1.getRequestId());
+        System.out.println("Сортируем по наименованию агентства:");
+        PriceRespondSorting.filterSortTravelAgencyNameAlphabet(request1.getRequestId());
+        System.out.println("Сортируем по имени улицы агентства:");
+        PriceRespondSorting.filterSortTravelAgencyStreetNameAlphabet(request1.getRequestId());
+
+//Выполняем фильтрацию
+        System.out.println("Фильтруем по цене: ");
+        PriceRespondFiltering.filterByPrice(request1.getRequestId(),200,400);
+        System.out.println("Отобразить только ответы от агентств, у которых есть веб сайт: ");
+        PriceRespondFiltering.filterTravelAgencyHaveWebSite(request1.getRequestId());
 
 //Отобразить дату в читабельном виде
 

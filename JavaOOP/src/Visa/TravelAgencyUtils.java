@@ -10,20 +10,20 @@ public class TravelAgencyUtils {
 //        if (!checkWasNotResponseEarlier(request, travelAgency)) {
 //            PriceResponds priceRespond = new PriceResponds(request.getRequestId(), travelAgency.getTravelAgencyEmail(), price);
 //            request.getPriceRespondsIdList().add(priceRespond);
-//            travelAgency.getResponsesOfTravelAgency().add(request);
+//            travelAgency.getRespondsOfTravelAgency().add(request);
 //        }
     }
 
-    boolean checkWasNotResponseEarlier(Request request, TravelAgency travelAgency) {
-        boolean result = false;
-        for (Request r : travelAgency.getResponsesOfTravelAgency()) {
-            if (r == request) {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
+//    boolean checkWasNotResponseEarlier(Request request, TravelAgency travelAgency) {
+//        boolean result = false;
+//        for (Request r : travelAgency.getRespondsOfTravelAgency()) {
+//            if (r == request) {
+//                result = true;
+//                break;
+//            }
+//        }
+//        return result;
+//    }
 
     int getPrice() {
         Scanner sc = new Scanner(System.in);

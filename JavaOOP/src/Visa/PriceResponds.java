@@ -2,9 +2,9 @@ package Visa;
 
 import Visa.dataStorage.AllPriceResponds;
 import Visa.dataStorage.AllRequests;
+import Visa.dataStorage.AllTravelAgencies;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.UUID;
 
 /**
@@ -24,6 +24,7 @@ public class PriceResponds implements Comparable<PriceResponds>, Serializable {
         priceRespondId = UUID.randomUUID().toString(); //Generate random id
         AllPriceResponds.getAllPriceRespondsMap().put(priceRespondId,this); //Place itself to the list of all responds
         AllRequests.getAllRequestsMap().get(requestId).getPriceRespondsIdList().add(priceRespondId);
+        AllTravelAgencies.getAllTravelAgenciesMap().get(travelAgencyId).getRespondsOfTravelAgency().add(priceRespondId);
         System.out.println("Respond creation success");
     }
 
