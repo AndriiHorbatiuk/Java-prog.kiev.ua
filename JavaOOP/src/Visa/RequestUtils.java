@@ -1,5 +1,9 @@
 package Visa;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by Andrey on 15.08.2016.
  */
@@ -22,5 +26,12 @@ public class RequestUtils {
 
     void applyRequestl() {
 //        Пользователь принимает одно из предложений, что открывает контакты агентства пользователю.
+    }
+
+   static void convertMillisecondsToDate(Long milliSeconds){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println(formatter.format(calendar.getTime()));
     }
 }

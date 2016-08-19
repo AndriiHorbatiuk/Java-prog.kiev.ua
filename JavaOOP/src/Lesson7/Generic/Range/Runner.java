@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class Runner {
     public static void main(String[] args) {
-        Range range = new Range(20.22,19);
+        Range<Number> range = new Range(20.22,19);
         int result = Objects.compare(range.getNum1(),range.getNum2(), new RangeUtils());
         if(result < 0){
             System.out.println("Промежуток указан верно. Числа: " + range.getNum1() + ", " + range.getNum2());
