@@ -15,7 +15,14 @@ public final class AllRequests implements Serializable{
     private static final long serialVersionUID = 7832458871396222148L;
     private static Map<String, Request> allRequestsMap = new HashMap<>();
 
+    private AllRequests() {
+    }
+
     public static Map<String, Request> getAllRequestsMap() {
         return allRequestsMap;
+    }
+
+    public static void setAllRequestsMap(Map<String, Request> allRequestsMap) {
+        AllRequests.allRequestsMap = allRequestsMap;
     }
 }

@@ -13,14 +13,16 @@ import java.util.Map;
  */
 public final class AllTravelAgencies implements Serializable {
     private static final long serialVersionUID = -3765330724073400694L;
-    private static List<TravelAgency> allTravelAgencies = new ArrayList<>();
     private static Map<String,TravelAgency> allTravelAgenciesMap = new HashMap<>();
+
+    private AllTravelAgencies() {
+    }
 
     public static Map<String, TravelAgency> getAllTravelAgenciesMap() {
         return allTravelAgenciesMap;
     }
 
-    public static List<TravelAgency> getTravelAgencies() {
-        return allTravelAgencies;
+    public static void setAllTravelAgenciesMap(Map<String, TravelAgency> allTravelAgenciesMap) {
+        AllTravelAgencies.allTravelAgenciesMap = allTravelAgenciesMap;
     }
 }

@@ -1,6 +1,8 @@
 package Visa;
 
 import Visa.dataStorage.AllRequests;
+import Visa.utils.ExceptionUtils;
+import Visa.utils.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,13 +24,30 @@ public class Request implements Serializable {
     private List<String> priceRespondsIdList = new ArrayList<>();
 //    private List<PriceResponds> priceRespondsIdList;
 
-    public Request(String userEmailInRequest) {
+    public Request(String userEmailInRequest) throws NullPointerException, IllegalArgumentException {
+        ExceptionUtils.checkStringOnNull(userEmailInRequest);
+        ExceptionUtils.checkStringOnEmpty(userEmailInRequest);
+        ExceptionUtils.checkStringIsEmail(userEmailInRequest);
+
         this.userEmailInRequest = userEmailInRequest;
         requestId = UUID.randomUUID().toString(); //Генерируем рендомный адйи
         dateOfRequestCreation = System.currentTimeMillis(); //Добавляем дату создания заявки
-        AllRequests.getAllRequestsMap().put(requestId,this);//Добавляем ссылку на запрос в общее хранилище
-        UserUtils.checkUserNewRequest(userEmailInRequest, this);  //Проверяем существует ли пользователь с таким email, добавляем
+        AllRequests.getAllRequestsMap().put(requestId, this); //Добавляем ссылку на запрос в общее хранилище
+        UserUtils.checkUserNewRequest(userEmailInRequest, requestId);  //Проверяем существует ли пользователь с таким email, добавляем
+    }
 
+    public Request(String requestId, String userEmailInRequest) throws NullPointerException, IllegalArgumentException {
+        ExceptionUtils.checkStringOnNull(userEmailInRequest);
+        ExceptionUtils.checkStringOnEmpty(userEmailInRequest);
+        ExceptionUtils.checkStringIsEmail(userEmailInRequest);
+        if(RequestUtils.checkRequestExistence(requestId)){
+            throw new IllegalArgumentException("Request with id " + requestId + "is already in DB.");
+        }
+        this.userEmailInRequest = userEmailInRequest;
+        this.requestId = requestId; //Используем существующий айди
+        dateOfRequestCreation = System.currentTimeMillis(); //Добавляем дату создания заявки
+        AllRequests.getAllRequestsMap().put(requestId, this); //Добавляем ссылку на запрос в общее хранилище
+        UserUtils.checkUserNewRequest(userEmailInRequest, requestId);  //Проверяем существует ли пользователь с таким email, добавляем
     }
 
     public static long getSerialVersionUID() {
@@ -81,6 +100,10 @@ public class Request implements Serializable {
 
     public void setLastTripDate(long lastTripDate) {
         this.lastTripDate = lastTripDate;
+    }
+
+    public void setDateOfRequestCreation(long dateOfRequestCreation) {
+        this.dateOfRequestCreation = dateOfRequestCreation;
     }
 
     @Override

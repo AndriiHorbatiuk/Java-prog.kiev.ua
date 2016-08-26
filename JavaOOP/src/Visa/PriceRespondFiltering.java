@@ -1,7 +1,9 @@
 package Visa;
 
 import Visa.dataStorage.AllTravelAgencies;
+import Visa.utils.ExceptionUtils;
 import Visa.utils.ObjectUtils;
+import Visa.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,31 +15,33 @@ public class PriceRespondFiltering {
 
     //Фильтруем по цене
 
-    static void filterByPrice(String requestId, int fromNum, int toNum){
-        List<PriceResponds> priceRespondsList;
-        priceRespondsList = PriceRespondUtils.getRespondListFromRequestId(requestId);
+    static void filterByPrice(String requestId, int fromNum, int toNum) throws NullPointerException, IllegalArgumentException {
+        ExceptionUtils.checkStringOnNull(requestId);
+        ExceptionUtils.checkStringOnEmpty(requestId);
+        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
+
         List<PriceResponds> filteredList = new ArrayList<>();
-        if (ObjectUtils.isNotNull(priceRespondsList)) {
-            for(PriceResponds pr : priceRespondsList){
-                if(pr.getPrice() >= fromNum && pr.getPrice() <= toNum){
-                    filteredList.add(pr);
-                }
+        for (PriceResponds pr : PriceRespondUtils.getRespondListFromRequestId(requestId)) {
+            if (pr.getPrice() >= fromNum && pr.getPrice() <= toNum) {
+                filteredList.add(pr);
             }
         }
-        System.out.println(filteredList.toString());
+
+        System.out.println(filteredList.toString());    //return
     }
 
-    static void filterTravelAgencyHaveWebSite(String requestId){
-        List<PriceResponds> priceRespondsList;
-        priceRespondsList = PriceRespondUtils.getRespondListFromRequestId(requestId);
+    static void filterTravelAgencyHaveWebSite(String requestId) throws NullPointerException, IllegalArgumentException{
+        ExceptionUtils.checkStringOnNull(requestId);
+        ExceptionUtils.checkStringOnEmpty(requestId);
+        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
+
         List<PriceResponds> filteredList = new ArrayList<>();
-        if (ObjectUtils.isNotNull(priceRespondsList)) {
-            for(PriceResponds pr : priceRespondsList){
-                if(ObjectUtils.isNotNull(AllTravelAgencies.getAllTravelAgenciesMap().get(pr.getTravelAgencyId()).getGetTravelAgencyWebSiteUrl())){
-                    filteredList.add(pr);
-                }
+        for (PriceResponds pr : PriceRespondUtils.getRespondListFromRequestId(requestId)) {
+            if (ObjectUtils.isNotNull(AllTravelAgencies.getAllTravelAgenciesMap().get(pr.getTravelAgencyId()).getGetTravelAgencyWebSiteUrl())) {
+                filteredList.add(pr);
             }
         }
-        System.out.println(filteredList.toString());
+        System.out.println(filteredList.toString());    //return
     }
+
 }

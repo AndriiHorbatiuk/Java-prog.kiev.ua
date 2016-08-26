@@ -2,13 +2,14 @@ package Visa;
 
 import Visa.dataStorage.AllTravelAgencies;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Andrey on 11.08.2016.
  */
-public class TravelAgency {
+public class TravelAgency implements Serializable{
     private String travelAgencyName;
     private String travelAgencyEmail; //id
     private String getTravelAgencyWebSiteUrl;
@@ -21,6 +22,9 @@ public class TravelAgency {
     //Constructor
 
     public TravelAgency(String travelAgencyEmail, String travelAgencyName) {
+        if(TravelAgencyUtils.checkTravelAgencyExistence(travelAgencyEmail)){
+            return;
+        }
         this.travelAgencyEmail = travelAgencyEmail; // email = id
         this.travelAgencyName = travelAgencyName;
         AllTravelAgencies.getAllTravelAgenciesMap().put(travelAgencyEmail,this); // Add itself to all travel agencies list

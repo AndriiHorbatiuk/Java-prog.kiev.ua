@@ -1,6 +1,7 @@
 package Visa;
 
 import Visa.dataStorage.AllUsers;
+import Visa.utils.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,8 +16,15 @@ public class User implements Serializable {
     private List<String> userRequestsIdList = new ArrayList<>();
 
     public User(String userEmail) {
-        this.userEmail = userEmail;
-        AllUsers.getAllUsersMap().put(userEmail,this);
+        if(!StringUtils.isEmail(userEmail)){
+            return;
+        }
+        if (UserUtils.checkUserExistence(userEmail)) {
+            return;
+        }
+            this.userEmail = userEmail;
+            AllUsers.getAllUsersMap().put(userEmail, this);
+
     }
 
     public String getUserEmail() {

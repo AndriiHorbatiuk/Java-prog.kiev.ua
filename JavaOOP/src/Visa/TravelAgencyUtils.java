@@ -1,31 +1,33 @@
 package Visa;
 
+import Visa.dataStorage.AllTravelAgencies;
+import Visa.utils.ExceptionUtils;
+import Visa.utils.StringUtils;
+
 import java.util.Scanner;
 
 /**
  * Created by Andrey on 17.08.2016.
  */
 public class TravelAgencyUtils {
-    void addRequestPrice(Request request, TravelAgency travelAgency, int price) {
-//        if (!checkWasNotResponseEarlier(request, travelAgency)) {
-//            PriceResponds priceRespond = new PriceResponds(request.getRequestId(), travelAgency.getTravelAgencyEmail(), price);
-//            request.getPriceRespondsIdList().add(priceRespond);
-//            travelAgency.getRespondsOfTravelAgency().add(request);
-//        }
+
+    static boolean checkTravelAgencyExistence(String travelAgencyId) {
+        ExceptionUtils.checkStringOnNull(travelAgencyId);
+        ExceptionUtils.checkStringOnEmpty(travelAgencyId);
+
+        return AllTravelAgencies.getAllTravelAgenciesMap().containsKey(travelAgencyId);
     }
 
-//    boolean checkWasNotResponseEarlier(Request request, TravelAgency travelAgency) {
-//        boolean result = false;
-//        for (Request r : travelAgency.getRespondsOfTravelAgency()) {
-//            if (r == request) {
-//                result = true;
-//                break;
-//            }
-//        }
-//        return result;
-//    }
+   public static void addPriceRespond(String requestId, String travelAgencyId, int price) throws NullPointerException, IllegalArgumentException {
+        ExceptionUtils.checkStringOnNull(requestId);
+        ExceptionUtils.checkStringOnNull(travelAgencyId);
+        ExceptionUtils.checkStringOnEmpty(requestId);
+        ExceptionUtils.checkStringOnEmpty(travelAgencyId);
 
-    int getPrice() {
+        new PriceResponds(travelAgencyId, requestId, price);
+    }
+
+    public static int getPrice() {
         Scanner sc = new Scanner(System.in);
         int price = sc.nextInt();
         return price;
