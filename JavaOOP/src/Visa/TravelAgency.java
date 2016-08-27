@@ -23,7 +23,7 @@ public class TravelAgency implements Serializable{
 
     public TravelAgency(String travelAgencyEmail, String travelAgencyName) {
         if(TravelAgencyUtils.checkTravelAgencyExistence(travelAgencyEmail)){
-            return;
+            throw new IllegalArgumentException("Travel agency with this email alreade exists.");
         }
         this.travelAgencyEmail = travelAgencyEmail; // email = id
         this.travelAgencyName = travelAgencyName;

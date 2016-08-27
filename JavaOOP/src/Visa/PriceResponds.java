@@ -4,6 +4,7 @@ import Visa.dataStorage.AllPriceResponds;
 import Visa.dataStorage.AllRequests;
 import Visa.dataStorage.AllTravelAgencies;
 import Visa.constants.priceConstants;
+import Visa.utils.ExceptionUtils;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -19,6 +20,10 @@ public final class PriceResponds implements Comparable<PriceResponds>, Serializa
     private int price;
 
     public PriceResponds(String travelAgencyId, String requestId, int price) {
+        ExceptionUtils.checkStringOnNull(requestId);
+        ExceptionUtils.checkStringOnEmpty(requestId);
+        ExceptionUtils.checkStringOnNull(travelAgencyId);
+        ExceptionUtils.checkStringOnEmpty(travelAgencyId);
         priceRespondId = UUID.randomUUID().toString(); //Generate random id
         if(!TravelAgencyUtils.checkTravelAgencyExistence(travelAgencyId)){
             throw new IllegalArgumentException("No such Travel Agency in DB. Travel Agency id: " + travelAgencyId);
@@ -29,15 +34,15 @@ public final class PriceResponds implements Comparable<PriceResponds>, Serializa
         if(price <= priceConstants.MINIMAL_PRICE || price > priceConstants.MAXIMAL_PRICE){
             throw new IllegalArgumentException("Price should be more than " + priceConstants.MINIMAL_PRICE + " and less than " + priceConstants.MAXIMAL_PRICE);
         }
-        if(PriceRespondUtils.isRespondFromTravelAgency(travelAgencyId,requestId)){
-            return;
-        }
+//        if(PriceRespondUtils.isRespondFromTravelAgency(travelAgencyId,requestId)){
+//            return; //I'm thinking about it
+//        }
         this.travelAgencyId = travelAgencyId;
         this.requestId = requestId;
         this.price = price;
         AllPriceResponds.getAllPriceRespondsMap().put(priceRespondId,this); //Place itself to the list of all responds
         AllRequests.getAllRequestsMap().get(requestId).getPriceRespondsIdList().add(priceRespondId); //Add respond to the request
-        AllTravelAgencies.getAllTravelAgenciesMap().get(travelAgencyId).getRespondsOfTravelAgency().add(priceRespondId); //Add respond to the travel agencie responds
+        AllTravelAgencies.getAllTravelAgenciesMap().get(travelAgencyId).getRespondsOfTravelAgency().add(priceRespondId); //Add respond to the travel agency responds
     }
 
     public String getTravelAgencyId() {
@@ -81,7 +86,8 @@ public final class PriceResponds implements Comparable<PriceResponds>, Serializa
     @Override
     public String toString() {
         return "PriceResponds{" +
-                "price=" + price +
+                "price=" + price + " " +
+                "Travel Agency Name: " + AllTravelAgencies.getAllTravelAgenciesMap().get(travelAgencyId).getTravelAgencyName() +
                 '}';
     }
 }

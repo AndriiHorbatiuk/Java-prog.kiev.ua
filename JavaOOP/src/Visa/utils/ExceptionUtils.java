@@ -28,9 +28,23 @@ public class ExceptionUtils {
 
     //Object exceptions
 
-    public static <T> void checkObjectOnNull (T object){
+    public static void checkObjectOnNull (Object object){
         if (!ObjectUtils.isNotNull(object)){
             throw new NullPointerException("The link on object is null");
+        }
+    }
+
+    //Numbers exceptions
+
+    public static void checkLongIsLong(Long num){
+        if(!NumUtils.isLong(num)){
+            throw new IllegalArgumentException("Value is not Long type.");
+        }
+    }
+
+    public static void checkIntIsInt(int num){
+        if(!NumUtils.isInt(num)){
+            throw new IllegalArgumentException("Value is not int type.");
         }
     }
 }

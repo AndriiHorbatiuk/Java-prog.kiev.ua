@@ -22,7 +22,6 @@ public class Request implements Serializable {
     private final String requestId;
     private long dateOfRequestCreation;
     private List<String> priceRespondsIdList = new ArrayList<>();
-//    private List<PriceResponds> priceRespondsIdList;
 
     public Request(String userEmailInRequest) throws NullPointerException, IllegalArgumentException {
         ExceptionUtils.checkStringOnNull(userEmailInRequest);

@@ -19,6 +19,8 @@ public class PriceRespondFiltering {
         ExceptionUtils.checkStringOnNull(requestId);
         ExceptionUtils.checkStringOnEmpty(requestId);
         ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
+        ExceptionUtils.checkIntIsInt(fromNum);
+        ExceptionUtils.checkIntIsInt(toNum);
 
         List<PriceResponds> filteredList = new ArrayList<>();
         for (PriceResponds pr : PriceRespondUtils.getRespondListFromRequestId(requestId)) {

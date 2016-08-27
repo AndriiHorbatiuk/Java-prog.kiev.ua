@@ -256,7 +256,12 @@ public class FileUtils {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] tempStringArray = line.split(SEPARATOR);
-                new PriceResponds(tempStringArray[0], tempStringArray[1], Integer.parseInt(tempStringArray[2]));
+                try {
+                    new PriceResponds(tempStringArray[0], tempStringArray[1], Integer.parseInt(tempStringArray[2]));
+                }
+                catch (NumberFormatException e){
+                    System.out.println("Check int type of price values. It is not int and couldn't be parsed.");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -51,7 +51,7 @@ class PriceRespondSorting {
     }
 
     static void sortTravelAgencyStreetNameAlphabet(String requestId) throws NullPointerException, IllegalArgumentException {
-//      Сортирует по имени агентства
+//      Сортирует по имениулицы, на котором находится агентство
         ExceptionUtils.checkStringOnNull(requestId);
         ExceptionUtils.checkStringOnEmpty(requestId);
         ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
@@ -64,6 +64,29 @@ class PriceRespondSorting {
         });
         System.out.println(PriceRespondUtils.getRespondListFromRequestId(requestId).toString());
 
+    }
+
+    static void sortMinMaxPriceTravelAgencyNameAlphabetStreetNameAlphabet(String requestId) throws NullPointerException, IllegalArgumentException {
+//      Сортирует по имени агентства
+        ExceptionUtils.checkStringOnNull(requestId);
+        ExceptionUtils.checkStringOnEmpty(requestId);
+        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
+
+        Collections.sort(PriceRespondUtils.getRespondListFromRequestId(requestId), new Comparator<PriceResponds>() {
+            @Override
+            public int compare(PriceResponds o1, PriceResponds o2) {
+                int result;
+                result = Integer.compare(o1.getPrice(), o2.getPrice());
+                if (result == 0) {
+                    result = AllTravelAgencies.getAllTravelAgenciesMap().get(o1.getTravelAgencyId()).getTravelAgencyName().compareTo(AllTravelAgencies.getAllTravelAgenciesMap().get(o2.getTravelAgencyId()).getTravelAgencyName());
+                    if (result == 0) {
+                        result = AllTravelAgencies.getAllTravelAgenciesMap().get(o1.getTravelAgencyId()).getTravelAgencyStreet().compareTo(AllTravelAgencies.getAllTravelAgenciesMap().get(o2.getTravelAgencyId()).getTravelAgencyStreet());
+                    }
+                }
+                return result;
+            }
+        });
+        System.out.println(PriceRespondUtils.getRespondListFromRequestId(requestId).toString()); // return
     }
 
 }
