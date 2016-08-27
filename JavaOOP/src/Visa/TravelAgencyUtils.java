@@ -12,19 +12,21 @@ import java.util.Scanner;
 public class TravelAgencyUtils {
 
     static boolean checkTravelAgencyExistence(String travelAgencyId) {
-        ExceptionUtils.checkStringOnNull(travelAgencyId);
-        ExceptionUtils.checkStringOnEmpty(travelAgencyId);
+        //@TODO Подумать как сделать через метод доступ к хешмепу
+        ExceptionUtils.checkStringWithExceptions(travelAgencyId);
 
         return AllTravelAgencies.getAllTravelAgenciesMap().containsKey(travelAgencyId);
     }
 
    public static void addPriceRespond(String requestId, String travelAgencyId, int price) throws NullPointerException, IllegalArgumentException {
-        ExceptionUtils.checkStringOnNull(requestId);
-        ExceptionUtils.checkStringOnNull(travelAgencyId);
-        ExceptionUtils.checkStringOnEmpty(requestId);
-        ExceptionUtils.checkStringOnEmpty(travelAgencyId);
+        ExceptionUtils.checkStringWithExceptions(requestId);
+        ExceptionUtils.checkStringWithExceptions(travelAgencyId);
 
         new PriceResponds(travelAgencyId, requestId, price);
+    }
+
+    static TravelAgency getTravelAgencyObjectFromId(String travelAgencyId){
+        return AllTravelAgencies.getAllTravelAgenciesMap().get(travelAgencyId);
     }
 
     public static int getPrice() {

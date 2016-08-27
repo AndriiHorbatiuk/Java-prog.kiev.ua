@@ -13,29 +13,27 @@ import java.util.List;
  * Created by Andrey on 19.08.2016.
  */
 public class PriceRespondUtils {
-    public static List<PriceResponds> getRespondListFromRequestId(String requestId) throws NullPointerException, IllegalArgumentException {
-        ExceptionUtils.checkStringOnNull(requestId);
-        ExceptionUtils.checkStringOnEmpty(requestId);
-        ExceptionUtils.checkObjectOnNull(AllRequests.getAllRequestsMap().get(requestId));
-        ExceptionUtils.checkObjectOnNull(AllRequests.getAllRequestsMap().get(requestId).getPriceRespondsIdList());
+    public static List<String> getRespondIdListFromRequestId(String requestId) throws NullPointerException, IllegalArgumentException {
+        ExceptionUtils.checkStringWithExceptions(requestId);
+        ExceptionUtils.checkObjectOnNull(RequestUtils.getRequestObjectFromId(requestId));
+        ExceptionUtils.checkObjectOnNull(RequestUtils.getRequestObjectFromId(requestId).getPriceRespondsIdList());
 
-        Request request = AllRequests.getAllRequestsMap().get(requestId);
-        List<PriceResponds> priceRespondsList = new ArrayList<>();
-        for (String s : request.getPriceRespondsIdList()) {
-            priceRespondsList.add(AllPriceResponds.getAllPriceRespondsMap().get(s));
-        }
-        return priceRespondsList;
+        return RequestUtils.getRequestObjectFromId(requestId).getPriceRespondsIdList();
     }
 
     public static boolean isRespondFromTravelAgency(String travelAgencyId, String requestId) {
-       List<String> listOfResponds = AllRequests.getAllRequestsMap().get(requestId).getPriceRespondsIdList();
+       List<String> listOfResponds = RequestUtils.getRequestObjectFromId(requestId).getPriceRespondsIdList();
         for(String s : listOfResponds){
-            if(AllPriceResponds.getAllPriceRespondsMap().get(s).getTravelAgencyId().equals(travelAgencyId)){
+            if(PriceRespondUtils.getPriceRespondObjectFromId(s).getTravelAgencyId().equals(travelAgencyId)){
                 return true;
             }
         }
         return false;
 
+    }
+
+    static PriceResponds getPriceRespondObjectFromId(String priceRespondId){
+        return AllPriceResponds.getAllPriceRespondsMap().get(priceRespondId);
     }
 
 }

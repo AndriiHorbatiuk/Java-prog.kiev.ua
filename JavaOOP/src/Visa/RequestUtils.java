@@ -1,6 +1,7 @@
 package Visa;
 
 import Visa.dataStorage.AllRequests;
+import Visa.dataStorage.AllUsers;
 import Visa.utils.ExceptionUtils;
 
 import java.text.DateFormat;
@@ -17,6 +18,10 @@ public class RequestUtils {
         ExceptionUtils.checkStringOnEmpty(requestId);
 
         return AllRequests.getAllRequestsMap().containsKey(requestId);
+    }
+
+    static Request getRequestObjectFromId(String requestId){
+        return AllRequests.getAllRequestsMap().get(requestId);
     }
 
     void sendRequestToTravelAgencies() {

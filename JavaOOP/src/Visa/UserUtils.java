@@ -12,18 +12,15 @@ public class UserUtils {
     //Проверяет: существует ли пользователь в общем списке пользователей
 
     static boolean checkUserExistence(String userId) {
-        ExceptionUtils.checkStringOnNull(userId);
-        ExceptionUtils.checkStringOnEmpty(userId);
+        ExceptionUtils.checkStringWithExceptions(userId);
 
         return AllUsers.getAllUsersMap().containsKey(userId);
     }
 
     //Обработка нового запроса (с проверкой на существование пользователя)
     static void checkUserNewRequest(String userEmailInRequest, String requestId) throws NullPointerException, IllegalArgumentException {
-        ExceptionUtils.checkStringOnNull(userEmailInRequest);
-        ExceptionUtils.checkStringOnEmpty(userEmailInRequest);
-        ExceptionUtils.checkStringOnNull(requestId);
-        ExceptionUtils.checkStringOnEmpty(requestId);
+        ExceptionUtils.checkStringWithExceptions(userEmailInRequest);
+        ExceptionUtils.checkStringWithExceptions(requestId);
 
         if (checkUserExistence(userEmailInRequest)) {
             addRequestToUser(requestId, userEmailInRequest);
@@ -36,12 +33,14 @@ public class UserUtils {
 //Добавляет запрос в список запросов пользователя
 
     static void addRequestToUser(String requestId, String userId) throws NullPointerException, IllegalArgumentException {
-        ExceptionUtils.checkStringOnNull(userId);
-        ExceptionUtils.checkStringOnEmpty(userId);
-        ExceptionUtils.checkStringOnNull(requestId);
-        ExceptionUtils.checkStringOnEmpty(requestId);
+        ExceptionUtils.checkStringWithExceptions(userId);
+        ExceptionUtils.checkStringWithExceptions(requestId);
 
-        AllUsers.getAllUsersMap().get(userId).getUserRequestsIdList().add(requestId);
+        UserUtils.getUserObjectFromId(userId).getUserRequestsIdList().add(requestId);
+    }
+
+    static User getUserObjectFromId(String userId){
+        return AllUsers.getAllUsersMap().get(userId);
     }
 
 }

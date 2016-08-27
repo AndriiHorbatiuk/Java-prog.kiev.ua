@@ -1,15 +1,11 @@
 package Visa;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import Visa.dataStorage.AllPriceResponds;
-import Visa.dataStorage.AllRequests;
 import Visa.dataStorage.AllTravelAgencies;
 import Visa.utils.ExceptionUtils;
-import Visa.utils.ObjectUtils;
 
 class PriceRespondSorting {
 
@@ -18,75 +14,124 @@ class PriceRespondSorting {
 //        Сортирует цены по возрастанию
         ExceptionUtils.checkStringOnNull(requestId);
         ExceptionUtils.checkStringOnEmpty(requestId);
-        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
 
-        Collections.sort(PriceRespondUtils.getRespondListFromRequestId(requestId));
-        System.out.println(PriceRespondUtils.getRespondListFromRequestId(requestId).toString()); // return
+        Collections.sort(PriceRespondUtils.getRespondIdListFromRequestId(requestId), new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+
+                return Integer.compare(PriceRespondUtils.getPriceRespondObjectFromId(o1).getPrice(), PriceRespondUtils.getPriceRespondObjectFromId(o2).getPrice());
+            }
+        });
+        // return
+        for (String s : PriceRespondUtils.getRespondIdListFromRequestId(requestId)) {
+            System.out.print(PriceRespondUtils.getPriceRespondObjectFromId(s).getPrice() + "; ");
+        }
+        ; // return
+
+
     }
 
     static void sortPriceMaxMin(String requestId) throws NullPointerException, IllegalArgumentException {
 //      Сортирует цены по убыванию
         ExceptionUtils.checkStringOnNull(requestId);
         ExceptionUtils.checkStringOnEmpty(requestId);
-        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
 
-        Comparator cmp = Collections.reverseOrder();
-        Collections.sort(PriceRespondUtils.getRespondListFromRequestId(requestId), cmp);
-        System.out.println(PriceRespondUtils.getRespondListFromRequestId(requestId).toString()); // return
+        Collections.sort(PriceRespondUtils.getRespondIdListFromRequestId(requestId), new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return Integer.compare(PriceRespondUtils.getPriceRespondObjectFromId(o2).getPrice(), PriceRespondUtils.getPriceRespondObjectFromId(o1).getPrice());
+            }
+        });
+        // return
+        for (String s : PriceRespondUtils.getRespondIdListFromRequestId(requestId)) {
+            System.out.print(AllPriceResponds.getAllPriceRespondsMap().get(s).getPrice() + "; ");
+        }
+        ; // return
     }
 
     static void sortTravelAgencyNameAlphabet(String requestId) throws NullPointerException, IllegalArgumentException {
 //      Сортирует по имени агентства
         ExceptionUtils.checkStringOnNull(requestId);
         ExceptionUtils.checkStringOnEmpty(requestId);
-        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
 
-        Collections.sort(PriceRespondUtils.getRespondListFromRequestId(requestId), new Comparator<PriceResponds>() {
+        Collections.sort(PriceRespondUtils.getRespondIdListFromRequestId(requestId), new Comparator<String>() {
+
             @Override
-            public int compare(PriceResponds o1, PriceResponds o2) {
-                return AllTravelAgencies.getAllTravelAgenciesMap().get(o1.getTravelAgencyId()).getTravelAgencyName().compareTo(AllTravelAgencies.getAllTravelAgenciesMap().get(o2.getTravelAgencyId()).getTravelAgencyName());
+            public int compare(String o1, String o2) {
+                String travelAgencyId1 = PriceRespondUtils.getPriceRespondObjectFromId(o1).getTravelAgencyId();
+                String travelAgencyId2 = PriceRespondUtils.getPriceRespondObjectFromId(o2).getTravelAgencyId();
+
+                return TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgencyId1).getTravelAgencyName().compareTo(
+                        TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgencyId2).getTravelAgencyName()
+                );
             }
         });
-        System.out.println(PriceRespondUtils.getRespondListFromRequestId(requestId).toString()); // return
+        // return
+        for (String s : PriceRespondUtils.getRespondIdListFromRequestId(requestId)) {
+            System.out.print(AllTravelAgencies.getAllTravelAgenciesMap().get(
+                    AllPriceResponds.getAllPriceRespondsMap().get(s).getTravelAgencyId()).getTravelAgencyName() + "; ");
+        }
+        ; // return
     }
 
     static void sortTravelAgencyStreetNameAlphabet(String requestId) throws NullPointerException, IllegalArgumentException {
-//      Сортирует по имениулицы, на котором находится агентство
+//      Сортирует по имени улицы, на котором находится агентство
         ExceptionUtils.checkStringOnNull(requestId);
         ExceptionUtils.checkStringOnEmpty(requestId);
-        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
+        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondIdListFromRequestId(requestId));
 
-        Collections.sort(PriceRespondUtils.getRespondListFromRequestId(requestId), new Comparator<PriceResponds>() {
+        Collections.sort(PriceRespondUtils.getRespondIdListFromRequestId(requestId), new Comparator<String>() {
+
             @Override
-            public int compare(PriceResponds o1, PriceResponds o2) {
-                return AllTravelAgencies.getAllTravelAgenciesMap().get(o1.getTravelAgencyId()).getTravelAgencyStreet().compareTo(AllTravelAgencies.getAllTravelAgenciesMap().get(o2.getTravelAgencyId()).getTravelAgencyStreet());
+            public int compare(String o1, String o2) {
+                String travelAgencyId1 = AllPriceResponds.getAllPriceRespondsMap().get(o1).getTravelAgencyId();
+                String travelAgencyId2 = AllPriceResponds.getAllPriceRespondsMap().get(o2).getTravelAgencyId();
+
+                return TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgencyId1).getTravelAgencyStreet().compareTo(
+                        TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgencyId2).getTravelAgencyStreet());
             }
         });
-        System.out.println(PriceRespondUtils.getRespondListFromRequestId(requestId).toString());
-
+        // return
+        for (String s : PriceRespondUtils.getRespondIdListFromRequestId(requestId)) {
+            System.out.print(AllTravelAgencies.getAllTravelAgenciesMap().get(
+                    AllPriceResponds.getAllPriceRespondsMap().get(s).getTravelAgencyId()).getTravelAgencyStreet() + "; ");
+        }
+        ;
+        // return
     }
 
     static void sortMinMaxPriceTravelAgencyNameAlphabetStreetNameAlphabet(String requestId) throws NullPointerException, IllegalArgumentException {
-//      Сортирует по имени агентства
+//      Сортирует по цене, с одинаковой ценой - по имени агентстваб с одинаковым именем - по названию улицы.
         ExceptionUtils.checkStringOnNull(requestId);
         ExceptionUtils.checkStringOnEmpty(requestId);
-        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondListFromRequestId(requestId));
+        ExceptionUtils.checkObjectOnNull(PriceRespondUtils.getRespondIdListFromRequestId(requestId));
 
-        Collections.sort(PriceRespondUtils.getRespondListFromRequestId(requestId), new Comparator<PriceResponds>() {
+        Collections.sort(PriceRespondUtils.getRespondIdListFromRequestId(requestId), new Comparator<String>() {
             @Override
-            public int compare(PriceResponds o1, PriceResponds o2) {
+            public int compare(String o1, String o2) {
                 int result;
-                result = Integer.compare(o1.getPrice(), o2.getPrice());
+                String travelAgency1Id = PriceRespondUtils.getPriceRespondObjectFromId(o1).getTravelAgencyId();
+                String travelAgency2Id = PriceRespondUtils.getPriceRespondObjectFromId(o2).getTravelAgencyId();
+                result = Integer.compare(PriceRespondUtils.getPriceRespondObjectFromId(o1).getPrice(), PriceRespondUtils.getPriceRespondObjectFromId(o2).getPrice());
                 if (result == 0) {
-                    result = AllTravelAgencies.getAllTravelAgenciesMap().get(o1.getTravelAgencyId()).getTravelAgencyName().compareTo(AllTravelAgencies.getAllTravelAgenciesMap().get(o2.getTravelAgencyId()).getTravelAgencyName());
+                    result = TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgency1Id).getTravelAgencyName().compareTo(
+                            TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgency2Id).getTravelAgencyName()
+                    );
                     if (result == 0) {
-                        result = AllTravelAgencies.getAllTravelAgenciesMap().get(o1.getTravelAgencyId()).getTravelAgencyStreet().compareTo(AllTravelAgencies.getAllTravelAgenciesMap().get(o2.getTravelAgencyId()).getTravelAgencyStreet());
+                        result = TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgency1Id).getTravelAgencyStreet().compareTo(TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgency2Id).getTravelAgencyStreet());
                     }
                 }
                 return result;
             }
         });
-        System.out.println(PriceRespondUtils.getRespondListFromRequestId(requestId).toString()); // return
+        // return
+        for (String s : PriceRespondUtils.getRespondIdListFromRequestId(requestId)) {
+            System.out.print(TravelAgencyUtils.getTravelAgencyObjectFromId((
+                    PriceRespondUtils.getPriceRespondObjectFromId(s).getTravelAgencyId())).getTravelAgencyName() + " " + TravelAgencyUtils.getTravelAgencyObjectFromId((
+                    PriceRespondUtils.getPriceRespondObjectFromId(s).getTravelAgencyId())).getTravelAgencyStreet() +
+                    PriceRespondUtils.getPriceRespondObjectFromId(s).getPrice());
+        }
+        ; // return
     }
 
 }

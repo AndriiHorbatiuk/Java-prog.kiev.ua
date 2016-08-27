@@ -41,8 +41,8 @@ public final class PriceResponds implements Comparable<PriceResponds>, Serializa
         this.requestId = requestId;
         this.price = price;
         AllPriceResponds.getAllPriceRespondsMap().put(priceRespondId,this); //Place itself to the list of all responds
-        AllRequests.getAllRequestsMap().get(requestId).getPriceRespondsIdList().add(priceRespondId); //Add respond to the request
-        AllTravelAgencies.getAllTravelAgenciesMap().get(travelAgencyId).getRespondsOfTravelAgency().add(priceRespondId); //Add respond to the travel agency responds
+        RequestUtils.getRequestObjectFromId(requestId).getPriceRespondsIdList().add(priceRespondId); //Add respond to the request
+        TravelAgencyUtils.getTravelAgencyObjectFromId(travelAgencyId).getRespondsOfTravelAgency().add(priceRespondId); //Add respond to the travel agency responds
     }
 
     public String getTravelAgencyId() {

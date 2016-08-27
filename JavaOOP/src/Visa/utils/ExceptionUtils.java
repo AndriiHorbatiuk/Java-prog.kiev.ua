@@ -7,6 +7,11 @@ public class ExceptionUtils {
 
     //String exceptions
 
+    public static void checkStringWithExceptions(String s) throws NullPointerException, IllegalArgumentException{
+        checkStringOnNull(s);
+        checkStringOnEmpty(s);
+    }
+
     public static void checkStringOnNull(String s) throws NullPointerException {
         if (!StringUtils.isNotNull(s)) {
             throw new NullPointerException("The value of string parameter is null. Change it!");

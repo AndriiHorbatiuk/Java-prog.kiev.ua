@@ -24,8 +24,7 @@ public class Request implements Serializable {
     private List<String> priceRespondsIdList = new ArrayList<>();
 
     public Request(String userEmailInRequest) throws NullPointerException, IllegalArgumentException {
-        ExceptionUtils.checkStringOnNull(userEmailInRequest);
-        ExceptionUtils.checkStringOnEmpty(userEmailInRequest);
+        ExceptionUtils.checkStringWithExceptions(userEmailInRequest);
         ExceptionUtils.checkStringIsEmail(userEmailInRequest);
 
         this.userEmailInRequest = userEmailInRequest;
@@ -36,8 +35,7 @@ public class Request implements Serializable {
     }
 
     public Request(String requestId, String userEmailInRequest) throws NullPointerException, IllegalArgumentException {
-        ExceptionUtils.checkStringOnNull(userEmailInRequest);
-        ExceptionUtils.checkStringOnEmpty(userEmailInRequest);
+        ExceptionUtils.checkStringWithExceptions(userEmailInRequest);
         ExceptionUtils.checkStringIsEmail(userEmailInRequest);
         if(RequestUtils.checkRequestExistence(requestId)){
             throw new IllegalArgumentException("Request with id " + requestId + "is already in DB.");

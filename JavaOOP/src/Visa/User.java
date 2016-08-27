@@ -1,6 +1,7 @@
 package Visa;
 
 import Visa.dataStorage.AllUsers;
+import Visa.utils.ExceptionUtils;
 import Visa.utils.StringUtils;
 
 import java.io.Serializable;
@@ -16,14 +17,13 @@ public class User implements Serializable {
     private List<String> userRequestsIdList = new ArrayList<>();
 
     public User(String userEmail) {
-        if(!StringUtils.isEmail(userEmail)){
-            return;
-        }
+        ExceptionUtils.checkStringWithExceptions(userEmail);
+        ExceptionUtils.checkStringIsEmail(userEmail);
         if (UserUtils.checkUserExistence(userEmail)) {
-            return;
+            throw new IllegalArgumentException("User with this email is already in DB. Email is: " + userEmail);
         }
-            this.userEmail = userEmail;
-            AllUsers.getAllUsersMap().put(userEmail, this);
+        this.userEmail = userEmail;
+        AllUsers.getAllUsersMap().put(userEmail, this);
 
     }
 
